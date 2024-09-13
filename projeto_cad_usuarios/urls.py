@@ -6,6 +6,5 @@ urlpatterns = [
     # rota, views responsavel, nome de referencia
     # usuarios.com   -- exemplo
     path('', views.home, name='home'),
-    path('usuarios', views.usuarios, name='listagem_usuarios')   
-
+    path('usuarios', views.usuarios, name='listagem_usuarios')
 ]
