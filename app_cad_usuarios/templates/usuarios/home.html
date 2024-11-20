@@ -9,4 +9,42 @@
     <button class="form-control-sm"> Enviar </button>
   </div>
 </form>
+
+<section class="container-personalizado_1" id="info_footer" style="margin-top: 20px; margin-bottom: 20px; font-weight: bold;">
+  <form action="{% url 'inclui_email' %}" method="post" class="m-3 p-3 text-center">
+    {% csrf_token %}
+    <h5>
+      <b>Quer receber nossas novidades, promoções exclusivas e 3% OFF na primeira compra? Cadastre-se!</b>
+    </h5>
+    <div class="input-group my-3">
+      <input type="email" class="form-control border-secondary rounded-0" id="email" name="email" autocomplete="email" placeholder="Digite seu e-mail" aria-label="Digite seu e-mail" aria-describedby="button-addon2" />
+      <button type="submit" class="btn btn-warning rounded-0" id="button-addon2"><b>Enviar</b></button>
+      <br><br>
+      <!-- Exibindo mensagens -->
+      {% if messages %}
+          <ul>
+              {% for message in messages %}
+                  <li class="{{ message.tags }}">{{ message }}</li>
+              {% endfor %}
+          </ul>
+      {% endif %}
+    </div>
+  </form>
+
+  &nbsp;&nbsp;
+  <button type="submit" class="btn btn-success">
+    <a href="{% url 'lista_usuarios' %}" style="text-decoration: none; color: black;">
+      Lista de Usuários
+    </a>    
+  </button>  
+
+
+  &nbsp;&nbsp;
+  <button type="submit" class="btn btn-success">
+    <a href="{% url 'lista_emails' %}" style="text-decoration: none; color: black;">
+      Lista de E-mails
+    </a>    
+  </button>  
+  
+</section>
 {% endblock %}
