@@ -47,7 +47,7 @@ def inclui_emails(request):
                 contato.save()
                 messages.success(request, 'Obrigado! Seu E-mail foi atualizado, você continuará recebendo ofertas exclusivas da Zeus Tech.')                    
             else:
-                messages.success(request, 'Obrigado! Seu E-mail foi atualizado, você continuará recebendo ofertas exclusivas da Zeus Tech.')  
+                messages.success(request, 'Obrigado! Seu E-mail foi cadastrado, agora você receberá ofertas exclusivas da Zeus Tech.')  
 
     # Retornar os dados para a pagina de listagem de usuarios
     return render(request, 'usuarios/home.html')
