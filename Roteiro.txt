@@ -1,3 +1,19 @@
+VIDEOS DE MUDANÇA DE SENHA
+----------------------------------------
+IMPLEMENTANDO FUNCIONALIDADE DE "TROCA DE SENHA" (PYTHON/DJANGO)
+https://www.youtube.com/watch?v=JrNMBj12H4Y
+
+
+VIDEOS DE ESQUECI/REDEFINIR SENHA
+----------------------------------------
+IMPLEMENTANDO "ESQUECI/RESETAR SENHA" (PYTHON/DJANGO)
+https://www.youtube.com/watch?v=lVbozsNX9ow
+
+
+
+
+
+
 urlpatterns = [
     path(
         'password_reset/', 
