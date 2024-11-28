@@ -1,0 +1,172 @@
+urlpatterns = [
+    path(
+        'password_reset/', 
+        auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
+        name='password_reset'
+    ),
+    path(
+        'password_reset_done/',
+        auth_views.PasswordResetDoneView.as_view(template_name='registration/password_reset_done.html'),
+        name='password_reset_done'
+    ),
+    path(
+        'reset/<uidb64>/<token>/',
+        auth_views.PasswordResetConfirmView.as_view(template_name='registration/password_reset_confirm.html'),
+        name='password_reset_confirm'
+    ),
+    path(
+        'reset/done/',
+        auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),
+        name='password_reset_complete'
+    ),
+]
+
+---------------------------------------
+
+from django.urls import path, include
+from . import views
+from django.contrib.auth import views as auth_views
+
+
+urlpatterns = [
+    path('cadastro/', views.cadastro, name="cadastro"),
+    path('logar/', views.logar, name="login"),
+    path('logout/', views.logout, name="logout"),
+    path('minha_conta/', views.minha_conta, name='minha_conta'),
+    path('minhas_compras/', views.minhas_compras, name='minhas_compras'),
+    path('detalhes_da_compra/<int:produto_id>/', views.detalhes_da_compra, name='detalhes_da_compra'),
+    path('buscar_endereco/', views.buscar_endereco, name='buscar_endereco'),
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
+    path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(), name='password_reset_done'),
+    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(), name='password_reset_complete'),   
+    path(
+        'password_reset/',
+        auth_views.PasswordResetView.as_view(template_name='registration/password_reset_form.html'),
+        name='password_reset'
+    ),    
+    
+]
+
+
+----------------------------------------
+Recuperar senha
+Esqueceu sua senha? Forneça seu endereço de email abaixo, e nos te enviaremos um email com instruções para configurar uma nova.
+
+
+Endereço de email:
+
+-----------------------------------------
+
+{% load i18n %}{% autoescape off %}
+{% blocktranslate %}Você está recebendo este e-mail porque solicitou uma redefinição de senha para sua conta de usuário em {{ site_name }}.{% endblocktranslate %}
+
+{% translate "Por favor, vá para a página a seguir e escolha uma nova senha: " %}
+{% block reset_link %}
+{{ protocol }}://{{ domain }}{% url 'password_reset_confirm' uidb64=uid token=token %}
+{% endblock %}
+{% translate 'Seu nome de usuário, caso você tenha esquecido: ' %} {{ user.get_username }}
+
+{% translate "Obrigado por usar nosso site! " %}
+	
+{% blocktranslate %}The {{ site_name }} team{% endblocktranslate %}
+
+{% endautoescape %}
+
+--------------------------------------
+
+
+contact offers
+
+class ContactOffers(models.Model):
+    email = models.EmailField(unique=True)  # Garante que o e-mail seja único
+    created_at = models.DateTimeField(auto_now_add=True)  # Data de cadastro
+
+    def __str__(self):
+        return self.email
+
+
+
+------------------------------------------------------
+19/11/24
+
+def emails(request):
+    if request.method == 'POST':
+
+        email = request.POST.get('email')
+
+        if email:
+            # Tenta encontrar o email e atualiza a data se ele existir
+            contato, created = EmailSubscription.objects.get_or_create(email=email)
+            if not created:
+                print(' Email já existe')
+                contato.data = now()  # Atualiza a data para o horário atual
+                contato.save()
+                messages.success(request, 'Obrigado! Seu E-mail foi atualizado, você continuará recebendo ofertas exclusivas da Zeus Tech.')
+        else:
+            print('não entrou no filtro . - J2CM ')
+            novo_email = EmailSubscription()
+            novo_email.email = request.POST.get('email')
+            novo_email.data = request.POST.get('data')
+            novo_email.save()
+            messages.success(request, 'Obrigado! Seu E-mail foi cadastrado, agora você receberá ofertas exclusivas da Zeus Tech.')
+
+    # Exibis todos contatos de e-mails em uma nova pag.
+    emails = {
+        'emails':EmailSubscription.objects.all()
+    }
+
+    # Retornar os dados para a pagina de listagem de usuarios
+    return render(request, 'usuarios/emails.html', emails)   
+
+
+
+
+-------------------------------------------
+urlpatterns = [
+    path('cadastro/', views.cadastro, name="cadastro"),
+    path('logar/', views.logar, name="login"),
+	
+--------------------------------------------
+
+
+    path(
+        'password_change/',
+        auth_views.PasswordChangeView.as_view(success_url='password_change_done'),
+        name='password_change'
+        # template_name = "registration/password_change_form.html"
+    ), 
+    path(
+        'password_change_done/',
+        auth_views.PasswordChangeDoneView.as_view(),
+        name='password_change_done'
+        # template_name = "registration/password_change_done.html"
+    ),
+
+    path(
+        'password_reset',
+        auth_views.PasswordResetView.as_view(template_name='accounts/password_reset_form.html'),
+        name='password_reset'      
+        # template_name = "registration/password_reset_form.html"
+    ),
+
+    path(
+        'password_reset_done',
+        auth_views.PasswordResetDoneView.as_view(),
+        name='password_reset_done'
+        # template_name = "registration/password_reset_done.html"
+    ),      
+    path(
+        'password_reset_confirm/<iudb64>/<token>',
+        auth_views.PasswordResetConfirmView.as_view(success_url='/accounts/password_reset_complete'),
+        name='password_reset_confirm'
+        # template_name = "registration/password_reset_confirm.html"
+    ),    
+    path(
+        'password_reset_complete',
+        auth_views.PasswordResetCompleteView.as_view(),
+        name='password_reset_complete'
+        # template_name = "registration/password_reset_complete.html"
+    ),   	
+
+

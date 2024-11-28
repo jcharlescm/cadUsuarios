@@ -52,5 +52,8 @@ def inclui_emails(request):
     # Retornar os dados para a pagina de listagem de usuarios
     return render(request, 'usuarios/home.html')
 
+def logar(request):
+    return render(request, 'usuarios/login.html')
+
 
 
