@@ -27,7 +27,7 @@ def usuarios(request):
     novo_usuario.idade = request.POST.get('idade')
     novo_usuario.save()
     
-    # Exibis todos usuarios em uma nova pag.
+    # Exibir todos usuarios em uma nova pag.
     usuarios = {
         'usuarios': Usuario.objects.all()
     }
